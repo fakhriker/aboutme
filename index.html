@@ -74,16 +74,23 @@
       padding: 20px;
     }
 
-    /* CARD */
+    /* CARD (SCROLL VERSION) */
     .card {
       background: #1e293b;
       padding: 20px;
       border-radius: 15px;
       margin-bottom: 20px;
-      transition: 0.3s ease;
+      transition: 0.6s ease;
       position: relative;
       overflow: hidden;
-      animation: fadeUp 0.8s ease;
+
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* EFEK SENTUH */
@@ -177,11 +184,6 @@
       to {opacity: 1; transform: translateY(0);}
     }
 
-    @keyframes fadeUp {
-      from {opacity: 0; transform: translateY(30px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
     @keyframes zoomIn {
       from {transform: scale(0.7); opacity: 0;}
       to {transform: scale(1); opacity: 1;}
@@ -192,7 +194,6 @@
 
 <body>
 
-<!-- NAVBAR -->
 <nav>
   <a href="#">Home</a>
   <a href="#about">About</a>
@@ -208,7 +209,7 @@
 <div class="container">
 
   <div class="card profile" id="about">
-    <img src="profil.jpg" alt="Profile" onclick="openPopup(this.src)">
+    <img src="profil.jpg" onclick="openPopup(this.src)">
     <p>Saya adalah pelajar yang tertarik pada dunia teknologi, khususnya elektronik dan robotika.</p>
   </div>
 
@@ -237,7 +238,7 @@
 
   <div class="card">
     <h2>🏆 Organisasi</h2>
-     <p>
+    <p>
       <a href="https://romancis.netlify.app" target="_blank">
         Robotik Mansaci
       </a>
@@ -246,16 +247,18 @@
 
   <div class="card" id="contact">
     <h2>📞 Contact</h2>
-    <p> Instagram: 
-  <a href="https://www.instagram.com/mangeabanj?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
-    @mangabanj
-  </a>
-</p>
-    <p> Email :
-  <a href="mailto:fakhriahmad315@gmail.com">
-    fakhriahmad315@gmail.com
-  </a>
-</p>
+
+    <p>Instagram: 
+      <a href="https://www.instagram.com/mangeabanj" target="_blank">
+        @mangabanj
+      </a>
+    </p>
+
+    <p>Email:
+      <a href="mailto:fakhriahmad315@gmail.com">
+        fakhriahmad315@gmail.com
+      </a>
+    </p>
   </div>
 
 </div>
@@ -278,6 +281,24 @@ function openPopup(src) {
 function closePopup() {
   document.getElementById("popup").style.display = "none";
 }
+
+/* 🔥 SCROLL ANIMATION */
+const cards = document.querySelectorAll('.card');
+
+function revealOnScroll() {
+  const triggerBottom = window.innerHeight * 0.85;
+
+  cards.forEach(card => {
+    const cardTop = card.getBoundingClientRect().top;
+
+    if (cardTop < triggerBottom) {
+      card.classList.add('show');
+    }
+  });
+}
+
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll();
 </script>
 
 </body>
