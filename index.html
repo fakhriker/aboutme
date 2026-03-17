@@ -74,7 +74,7 @@
       padding: 20px;
     }
 
-    /* CARD (SCROLL VERSION) */
+    /* CARD */
     .card {
       background: #1e293b;
       padding: 20px;
@@ -86,6 +86,9 @@
 
       opacity: 0;
       transform: translateY(40px);
+
+      display: block;
+      cursor: pointer;
     }
 
     .card.show {
@@ -93,10 +96,15 @@
       transform: translateY(0);
     }
 
-    /* EFEK SENTUH */
+    /* HOVER */
     .card:hover {
       transform: translateY(-8px);
       box-shadow: 0 10px 25px rgba(56, 189, 248, 0.3);
+    }
+
+    /* KLIK EFFECT */
+    .card:active {
+      transform: scale(0.97);
     }
 
     /* GLOW */
@@ -157,7 +165,7 @@
       font-size: 14px;
     }
 
-    /* POPUP FOTO */
+    /* POPUP */
     #popup {
       position: fixed;
       top: 0;
@@ -178,7 +186,6 @@
       animation: zoomIn 0.3s ease;
     }
 
-    /* ANIMASI */
     @keyframes fadeIn {
       from {opacity: 0; transform: translateY(-20px);}
       to {opacity: 1; transform: translateY(0);}
@@ -261,13 +268,11 @@
     </p>
   </div>
 
-  <div class="card">
-    <p>
-  <a href="aboutme.html">
-    🚀 The Portfolio
+  <!-- 🔥 FULL CLICKABLE CARD -->
+  <a href="aboutme.html" class="card">
+    <h2>🚀 The Portfolio</h2>
+    <p>Lihat portfolio lengkap saya</p>
   </a>
-</p>
-  </div>
 
 </div>
 
@@ -290,7 +295,7 @@ function closePopup() {
   document.getElementById("popup").style.display = "none";
 }
 
-/* 🔥 SCROLL ANIMATION */
+/* SCROLL ANIMATION */
 const cards = document.querySelectorAll('.card');
 
 function revealOnScroll() {
