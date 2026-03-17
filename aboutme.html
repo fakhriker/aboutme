@@ -3,14 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Portfolio - Fakhri</title>
+  <title>Portfolio - Fakhri</title>
 
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
       background: #0f172a;
       color: white;
+      scroll-behavior: smooth;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px;
+      animation: fadeIn 1s ease;
+    }
+
+    header h1 {
+      font-size: 32px;
+    }
+
+    header p {
+      color: #94a3b8;
     }
 
     .container {
@@ -19,42 +67,116 @@
       padding: 20px;
     }
 
-    .section {
-      margin-bottom: 30px;
-      padding: 20px;
+    .card {
       background: #1e293b;
+      padding: 20px;
       border-radius: 15px;
+      margin-bottom: 20px;
+      transition: 0.6s ease;
+      position: relative;
+      overflow: hidden;
+
+      opacity: 0;
+      transform: translateY(40px);
+
+      display: block;
+      cursor: pointer;
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.3);
+    }
+
+    .card:active {
+      transform: scale(0.97);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 15px;
+      background: rgba(56, 189, 248, 0.15);
+      opacity: 0;
       transition: 0.3s;
+      z-index: -1;
     }
 
-    .section:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(56,189,248,0.3);
+    .card:hover::after {
+      opacity: 1;
+      filter: blur(20px);
     }
 
-    h1, h2 {
-      color: #38bdf8;
-    }
-
-    .hero {
+    .profile {
       text-align: center;
     }
 
-    .hero img {
-      width: 140px;
-      height: 140px;
+    .profile img {
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      object-fit: cover;
       border: 3px solid #38bdf8;
+      object-fit: cover;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: 0.3s;
     }
 
-    a {
-      color: white;
-      text-decoration: none;
-    }
-
-    a:hover {
+    h2 {
       color: #38bdf8;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    ul li {
+      padding: 5px 0;
+      border-bottom: 1px solid #334155;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    #popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    #popup img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      animation: zoomIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes zoomIn {
+      from {transform: scale(0.7); opacity: 0;}
+      to {transform: scale(1); opacity: 1;}
     }
 
   </style>
@@ -62,51 +184,98 @@
 
 <body>
 
+<nav>
+  <a href="#about">About</a>
+  <a href="#skill">Skill</a>
+  <a href="#experience">Experience</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<header>
+  <h1>🚀 My Portfolio</h1>
+  <p>Fakhri Ahmad Alfanani</p>
+</header>
+
 <div class="container">
 
-  <!-- HERO -->
-  <div class="section hero">
-    <img src="profil.jpg">
-    <h1>Fakhri Ahmad Alfanani</h1>
-    <p>Tech Enthusiast | Fokus pada Elektronik & Robotika</p>
+  <div class="card profile" id="about">
+    <img src="profil.jpg" onclick="openPopup(this.src)">
+    <p>Pelajar yang fokus di bidang teknologi, khususnya elektronik, IoT, dan robotika.</p>
   </div>
 
-  <!-- ABOUT -->
-  <div class="section">
-    <h2>👤 About Me</h2>
-    <p>Saya adalah pelajar dari MAN 1 Cirebon yang memiliki minat besar di bidang teknologi, khususnya elektronik dan robotika. Saya aktif mengembangkan kemampuan melalui praktik langsung dan eksplorasi proyek.</p>
+  <div class="card">
+    <h2>🎓 Pendidikan</h2>
+    <p>MAN 1 Cirebon</p>
   </div>
 
-  <!-- SKILLS -->
-  <div class="section">
+  <div class="card" id="skill">
     <h2>💡 Skills</h2>
     <ul>
-      <li>Arduino & ESP32</li>
-      <li>Dasar Pemrograman</li>
-      <li>Elektronik</li>
-      <li>Problem Solving</li>
+      <li>Elektronik & Rangkaian</li>
+      <li>Arduino / ESP32</li>
+      <li>Dasar Web Development</li>
     </ul>
   </div>
 
-  <!-- EXPERIENCE -->
-  <div class="section">
-    <h2>🏆 Experience</h2>
-    <p>Anggota Robotik Mansaci (MAN 1 Cirebon)</p>
+  <div class="card" id="experience">
+    <h2>🧠 Experience</h2>
+    <p>Aktif di Robotik Mansaci dan membuat beberapa proyek berbasis mikrokontroler.</p>
   </div>
 
-  <!-- CONTACT -->
-  <div class="section">
+  <div class="card">
+    <h2>🏆 Achievement</h2>
+    <p>Pengalaman mengikuti kegiatan robotika dan pengembangan project mandiri.</p>
+  </div>
+
+  <div class="card" id="contact">
     <h2>📞 Contact</h2>
-    <p>Email: <a href="mailto:fakhriahmad315@gmail.com">fakhriahmad315@gmail.com</a></p>
-    <p>Instagram: <a href="https://instagram.com/mangeabanj">@mangabanj</a></p>
+    <p>Email: fakhriahmad315@gmail.com</p>
+    <p>Instagram: @mangabanj</p>
   </div>
 
-  <!-- BACK -->
-  <div class="section" style="text-align:center;">
-    <a href="index.html">⬅️ Kembali ke Home</a>
-  </div>
+  <!-- 🔥 FULL CLICK BACK -->
+  <a href="index.html" class="card">
+    <h2>⬅️ Kembali ke Halaman Utama</h2>
+    <p>Klik untuk kembali ke homepage</p>
+  </a>
 
 </div>
+
+<footer>
+  © 2026 Fakhri | Portfolio
+</footer>
+
+<div id="popup" onclick="closePopup()">
+  <img id="popup-img">
+</div>
+
+<script>
+function openPopup(src) {
+  document.getElementById("popup").style.display = "flex";
+  document.getElementById("popup-img").src = src;
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
+const cards = document.querySelectorAll('.card');
+
+function revealOnScroll() {
+  const triggerBottom = window.innerHeight * 0.85;
+
+  cards.forEach(card => {
+    const cardTop = card.getBoundingClientRect().top;
+
+    if (cardTop < triggerBottom) {
+      card.classList.add('show');
+    }
+  });
+}
+
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll();
+</script>
 
 </body>
 </html>
